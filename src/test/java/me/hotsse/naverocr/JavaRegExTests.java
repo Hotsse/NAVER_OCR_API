@@ -23,8 +23,6 @@ public class JavaRegExTests {
 		
 		final String filePath = "C:/OcrResponse.json";
 		
-		
-		
 		ObjectMapper mapper = new ObjectMapper();
 		
 		OcrResponse ocrResponse = null;
