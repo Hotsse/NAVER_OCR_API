@@ -74,20 +74,6 @@ public class JavaRegExTests {
 		}
 	}
 	
-	private List<String> fetchStringWithRegEx(String originText, String patternText) {
-		
-		List<String> result = new ArrayList<String>();
-		Pattern pattern = Pattern.compile(patternText);
-		Matcher matcher = pattern.matcher(originText);
-		
-		while(matcher.find()) {
-			result.add(matcher.group(0));
-			if(matcher.group(0) == null) break;
-		}
-		
-		return result;
-	}
-	
 	private List<String> fetchStringWithRegEx(List<OcrImageEntity> ocrImageEntities, String patternText) {
 		
 		List<String> result = new ArrayList<String>();
@@ -104,5 +90,21 @@ public class JavaRegExTests {
 		
 		return result;
 	}
+	
+	private List<String> fetchStringWithRegEx(String originText, String patternText) {
+		
+		List<String> result = new ArrayList<String>();
+		Pattern pattern = Pattern.compile(patternText);
+		Matcher matcher = pattern.matcher(originText);
+		
+		while(matcher.find()) {
+			result.add(matcher.group(0));
+			if(matcher.group(0) == null) break;
+		}
+		
+		return result;
+	}
+	
+	
 
 }
