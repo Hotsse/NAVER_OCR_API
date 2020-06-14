@@ -1,25 +1,25 @@
 package me.hotsse.naverocr;
 
-import java.io.FileInputStream;
+import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.MultipartBodyBuilder;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import me.hotsse.naverocr.ocr.vo.OcrCredentials;
 import me.hotsse.naverocr.ocr.vo.OcrImageEntity;
 import me.hotsse.naverocr.ocr.vo.OcrImageResponse;
 import me.hotsse.naverocr.ocr.vo.OcrResponse;
@@ -30,16 +30,23 @@ class NaverocrApplicationTests {
 	@Test
 	void contextLoads() {
 		
-		final String baseUrl = "https://811dd3bca6ff4a0391f742bb2f6eb585.apigw.ntruss.com";
-		final String uri = "/custom/v1/2158/d945f4ddcd83cd513d137061ea39d00e65c5304743b3b42d03a6434137d1afad/general";
-		final String secretKey = "Z091Y1h2WXRDQ2hBWXhheUhpSHhYT1FPdVJJZkd2THI=";
-		
+		final String credentialPath = "C:/OcrCredentials.json";
 		final String filePath = "C:/testimg11.jpg";
+		ObjectMapper mapper = new ObjectMapper();
+		
+		OcrCredentials ocrCredentials = null;
+		try {
+			String json = FileUtils.readFileToString(new File(credentialPath), StandardCharsets.UTF_8);
+			ocrCredentials = mapper.readValue(json, OcrCredentials.class);			
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}		
 		
 		WebClient webClient = WebClient.builder()
-				.baseUrl(baseUrl)
+				.baseUrl(ocrCredentials.getBaseUrl())
 				.defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.MULTIPART_FORM_DATA_VALUE)
-				.defaultHeader("X-OCR-SECRET", secretKey)
+				.defaultHeader("X-OCR-SECRET", ocrCredentials.getSecretKey())
 				.build();
 		
 		MultipartBodyBuilder bodyBuilder = new MultipartBodyBuilder();
@@ -52,13 +59,12 @@ class NaverocrApplicationTests {
 		imageMaps.add(imageMap);
 		
 		messageMap.put("version", "V2");
-		messageMap.put("requestId", "Z091Y1h2WXRDQ2hBWXhheUhpSHhYT1FPdVJJZkd2THI=");
+		messageMap.put("requestId", ocrCredentials.getSecretKey());
 		messageMap.put("timestamp", "1584062336793");
 		messageMap.put("lang", "ko");
 		messageMap.put("images", imageMaps);
 		
 		String message = "";
-		ObjectMapper mapper = new ObjectMapper();
 		try {			
 			message = mapper.writeValueAsString(messageMap);
 						
@@ -74,7 +80,7 @@ class NaverocrApplicationTests {
 		
 		String result = webClient
 				.post()
-				.uri(uri)
+				.uri(ocrCredentials.getUri())
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.MULTIPART_FORM_DATA)
 				.body(BodyInserters.fromMultipartData(bodyBuilder.build()))
@@ -107,7 +113,7 @@ class NaverocrApplicationTests {
 		
 		/*
 		ResponseEntity result = webClient.method(HttpMethod.POST)
-				.uri(uri)
+				.uri(ocrCredentials.getUri())
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.MULTIPART_FORM_DATA)
 				.body(BodyInserters.fromMultipartData(bodyBuilder.build()))
