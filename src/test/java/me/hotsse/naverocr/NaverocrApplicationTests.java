@@ -34,7 +34,7 @@ class NaverocrApplicationTests {
 		final String uri = "/custom/v1/2158/d945f4ddcd83cd513d137061ea39d00e65c5304743b3b42d03a6434137d1afad/general";
 		final String secretKey = "Z091Y1h2WXRDQ2hBWXhheUhpSHhYT1FPdVJJZkd2THI=";
 		
-		final String filePath = "C:/testimg11.jpg";
+		final String filePath = "C:/testimg.jpg";
 		
 		WebClient webClient = WebClient.builder()
 				.baseUrl(baseUrl)
@@ -48,7 +48,7 @@ class NaverocrApplicationTests {
 		List<Map<String, String>> imageMaps = new ArrayList<Map<String,String>>();
 		Map<String, String> imageMap = new HashMap<String, String>();
 		imageMap.put("format", "jpg");
-		imageMap.put("name", "testimg2");
+		imageMap.put("name", "tempimg");
 		imageMaps.add(imageMap);
 		
 		messageMap.put("version", "V2");
