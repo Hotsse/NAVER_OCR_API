@@ -21,7 +21,7 @@ public class JavaRegExTests {
 	@Test
 	public void test() {
 		
-		final String filePath = "C:/OcrResponse.json";
+		final String filePath = "C:/OcrResponse2.json";
 		
 		ObjectMapper mapper = new ObjectMapper();
 		
@@ -56,7 +56,8 @@ public class JavaRegExTests {
 		System.out.println("---");
 		
 		// 신용카드 관련 정보 획득
-		List<String> cardInfoText = this.fetchStringWithRegEx(oneImageEntities, "[0-9||*]{4}-?[0-9||*]{4}-?[0-9||*]{4}-?[0-9||*]{4}");
+		List<String> cardInfoText = this.fetchStringWithRegEx(originText, "[0-9||*]{4}-?[0-9||*]{4}-?[0-9||*]{4}-?[0-9||*]{4}");
+		// List<String> cardInfoText = this.fetchStringWithRegEx(oneImageEntities, "[0-9||*]{4}-?[0-9||*]{4}-?[0-9||*]{4}-?[0-9||*]{4}");
 		
 		System.out.println("신용카드 관련 수집정보");
 		for(String text : cardInfoText) {
@@ -66,7 +67,8 @@ public class JavaRegExTests {
 		System.out.println("---");
 		
 		// 금액 관련 정보 획득
-		List<String> cashInfoText = this.fetchStringWithRegEx(oneImageEntities, "[0-9||,]{3,}원");
+		List<String> cashInfoText = this.fetchStringWithRegEx(originText, "[0-9||,]{3,}원");
+		// List<String> cashInfoText = this.fetchStringWithRegEx(oneImageEntities, "[0-9||,]{3,}원");
 		
 		System.out.println("금액 관련 수집정보");
 		for(String text : cashInfoText) {
