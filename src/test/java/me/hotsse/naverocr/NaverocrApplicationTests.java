@@ -30,8 +30,8 @@ class NaverocrApplicationTests {
 	@Test
 	void contextLoads() {
 		
-		final String credentialPath = "C:/OcrCredentials.json";
-		final String filePath = "C:/testimg11.jpg";
+		final String credentialPath = "C:/storages/NAVER_OCR_API/credentials/OcrCredentials.json";
+		final String filePath = "C:/storages/NAVER_OCR_API/samples/testimg11.jpg";
 		ObjectMapper mapper = new ObjectMapper();
 		
 		OcrCredentials ocrCredentials = null;
