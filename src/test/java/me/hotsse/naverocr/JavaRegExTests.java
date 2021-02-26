@@ -37,10 +37,8 @@ public class JavaRegExTests {
 		String originText = "";
 		
 		List<OcrImageResponse> ocrImageResponses = ocrResponse.getImages();
-		List<OcrImageEntity> oneImageEntities = null;
 		for(OcrImageResponse ocrImageResponse : ocrImageResponses) {
 			List<OcrImageEntity> ocrImageEntities = ocrImageResponse.getFields();
-			oneImageEntities = ocrImageEntities;
 			for(OcrImageEntity ocrImageEntity : ocrImageEntities) {
 				originText += ocrImageEntity.getInferText();
 			}
