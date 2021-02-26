@@ -77,7 +77,6 @@ class NaverocrApplicationTests {
 		bodyBuilder.part("message", message);
 		bodyBuilder.part("file", new FileSystemResource(filePath));
 		
-		
 		String result = webClient
 				.post()
 				.uri(ocrCredentials.getUri())
@@ -109,7 +108,6 @@ class NaverocrApplicationTests {
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		
 		
 		/*
 		ResponseEntity result = webClient.method(HttpMethod.POST)
