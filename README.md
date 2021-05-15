@@ -7,6 +7,8 @@ https://docs.ncloud.com/ko/ocr/ocr-1-1.html
 서비스 소개 및 과금정책
 https://www.ncloud.com/product/aiService/ocr
 
+-------------------------------
+
 Template OCR
 - 영역 지정 기반 문자 판독
 - Basic : 월 300회 / 무료
