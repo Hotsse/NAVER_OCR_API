@@ -61,7 +61,7 @@
 		</dependency>
 		
 		<!-- custom -->
-		<dependency> <!-- feat.조상님의_지혜 -->
+		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.7</version>
